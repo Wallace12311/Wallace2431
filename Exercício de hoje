@@ -1,0 +1,72 @@
+import './App.css'
+import Card from './components/Card'
+
+function App() {
+
+  return (
+      <div className="container">
+        <h2>Cálculo de média</h2>
+        <Card />
+      </div>
+  )
+}
+
+export default App
+
+import { useState } from "react";
+
+export default function Card() {
+    const [nota1, setNota1] = useState(0)
+    const [nota2, setNota2] = useState(0)
+    const [nota3, setNota3] = useState(0)
+
+    const [aprovado, setAprovado] = useState(false)
+    const [media, setMedia] = useState(0)
+
+    function calcularMedia() {
+        const media = (parseFloat(nota1) + parseFloat(nota2) + parseFloat(nota3)) / 3
+        setMedia(media)
+        if(media >= 7) {
+            setAprovado(true)
+        } else {
+            setAprovado(false)
+        }
+    }
+
+    return (
+        <div className="card">
+          <div className="inputs">
+            <div className="input">
+              <label htmlFor="">Nota 1</label>
+              <input type="text"
+                value={nota1}
+                onChange={(valor) => setNota1(valor.target.value)}
+              />
+            </div>
+            <div className="input">
+              <label htmlFor="">Nota 2</label>
+              <input type="text" 
+                value={nota2}
+                onChange={(valor) => setNota2(valor.target.value)}
+              />
+            </div>
+            <div className="input">
+              <label htmlFor="">Nota 3</label>
+              <input type="text" 
+                value={nota3}
+                onChange={(valor) => setNota3(valor.target.value)}
+              />
+            </div>
+          </div>
+          <div className="buttons">
+                <button onClick={
+                    calcularMedia
+                }>Calcular</button>
+          </div>
+            <div className="resultado">
+                <p>Média: {media.toFixed(2)}</p>
+                <p>Aprovado:{ aprovado ? "Sim" : "Não"}</p>
+            </div>
+        </div>
+    )
+}
